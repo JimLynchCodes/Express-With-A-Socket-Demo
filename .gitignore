@@ -1,2 +1,5 @@
 http/node_modules
 https/node_modules
+.idea
+http/.idea
+https/.idea
