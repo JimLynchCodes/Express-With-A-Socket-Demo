@@ -1,16 +1,15 @@
-const PORT = 8889;
+const PORT = 443;
 
 console.log('connecting to server...');
 
-ws = new WebSocket('ws://127.0.0.1:' + PORT);
+ws = new WebSocket('wss://YOURDOMAIN.COM:' + PORT);
 
 ws.onconnection = function () {
     console.log('connected to server!')
 };
 
 ws.onopen = function () {
-    console.log('Server connection opened!')
-
+    console.log('Server connection opened!');
     ws.send(JSON.stringify({type: "USER_JOINED"}));
 };
 
