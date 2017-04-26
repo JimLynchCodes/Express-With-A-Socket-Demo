@@ -1,19 +1,40 @@
-// var https = require('https');
- console.log('hellooooooooo');
- var a = 5;
-// // var websockServe = https.createServer(options).listen(8080);
-// // var websocky = require('ws').Server
-// // var ws = new websocky({server: websockServe});
-     console.log('connecting to server...');
-//     //    console.log('browser socket is: ' + ws);
-     ws = new WebSocket('ws://0.0.0.0:8089');
-      ws.onconnection = function () {
-              console.log('connecting to server still...')
-                  };
-                      ws.onconnection = function () {
-                              console.log('connected to server!')
-                                  };
-                                     ws.onopen = function () {
-                                             console.log('connected to server!')
-                   ws.send(JSON.stringify({type: "USER_JOIN"}));
-                                                          };
+const PORT = 8889;
+
+console.log('connecting to server...');
+
+ws = new WebSocket('ws://127.0.0.1:' + PORT);
+
+ws.onconnection = function () {
+    console.log('connected to server!')
+};
+
+ws.onopen = function () {
+    console.log('Server connection opened!')
+
+    ws.send(JSON.stringify({type: "USER_JOINED"}));
+};
+
+ws.addEventListener('message', function (event) {
+    console.log('Message from server', JSON.parse(event.data));
+
+    switch (JSON.parse(event.data).type) {
+        case "HI_FROM_SERVER": {
+            console.log('The server said hi with the number: ' +
+                JSON.parse(event.data).payload);
+            break;
+        }
+
+        case "USER_ACKNOWLEDGED": {
+            console.log('The server know I\'m here. yay.')
+        }
+
+    }
+});
+
+
+    // switch (JSON.parse(event.data).type) {
+    //     case "HI_FROM_SERVER": {
+    //         console.log('server said hi.');
+    //     }
+    // }
+// });
